@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cookie-cross-sub-domain</title>
+</head>
+<body>
+    <h1>hello, you cookie: <span id="val"></span></h1>
+    <button id="set">Set</button>
+    <button id="get">Get</button>
+    <script>
+        function xhr(action, cb){
+            const req = new XMLHttpRequest();
+            req.withCredentials = true;
+            req.addEventListener('load', e=> {
+                cb && cb(e.target.responseText);
+            });
+            req.open('get', `http://b.x.com/${action}`);
+            req.send();
+        };
+        set.onclick = function(){
+            xhr('set');
+        };
+        get.onclick = function(){
+            xhr('get', res => {
+                val.innerText = res;
+            });
+        };
+    </script>
+</body>
+</html>
